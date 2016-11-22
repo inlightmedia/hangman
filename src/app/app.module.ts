@@ -8,6 +8,7 @@ import { InfoBarComponent } from './components/info-bar.component';
 import { AngularFireModule } from 'angularfire2';
 import { UserService } from './services/user.service';
 import { ScoreService } from './services/score.service';
+import { AuthService } from './services/auth.service';
 import { LoginFormComponent } from './components/login-form.component';
 
 // Must export the config
@@ -22,7 +23,7 @@ export const firebaseConfig = {
 @NgModule({
   imports: [BrowserModule, AngularFireModule.initializeApp(firebaseConfig)],
   declarations: [AppComponent, LetterButtonsComponent, MaskPipe, LoginComponent, InfoBarComponent, LoginFormComponent],
-  providers: [UserService, ScoreService],
+  providers: [UserService, ScoreService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

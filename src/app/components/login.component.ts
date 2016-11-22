@@ -1,6 +1,7 @@
-import { Component, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter, ElementRef, OnInit } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'login',
@@ -15,9 +16,9 @@ import { UserService } from '../services/user.service';
         </div>
         
         
-        <button class="btn btn-primary" *ngIf="!userService?.user" (click)="login()" class="btn btn-action" #btnLogin>Login</button>
-        <button class="btn btn-primary" *ngIf="!userService?.user" (click)="signup()" class="btn btn-secondary" #btnSignup>SignUp</button>
-        <button class="btn btn-primary" *ngIf="userService?.user" (click)="logout()" class="btn btn-action" #btnLogout>Logout</button>
+        <button class="btn btn-primary" *ngIf="!userService?.user" (click)="logIn(txtEmail.value, txtPassword.value)" class="btn btn-action" #btnLogin>Login</button>
+        <button class="btn btn-primary" *ngIf="!userService?.user" (click)="signUp(txtEmail.value, txtPassword.value)" class="btn btn-secondary" #btnSignup>SignUp</button>
+        <button class="btn btn-primary" *ngIf="userService?.user" (click)="logOut()" class="btn btn-action" #btnLogout>Logout</button>
       </div>
     </div>           
   `
@@ -31,27 +32,29 @@ export class LoginComponent {
     @ViewChild('btnSigup') btnSignup: ElementRef;
     @ViewChild('btnLogout') btnLogout: ElementRef;
 
-    user;
-    userService;
-    constructor(userService: UserService){        
-        this.userService = userService; 
-        this.user = this.userService.user;               
+    constructor(public authService: AuthService, public userService: UserService){                
+        const getUser = authService.getAsyncUser();
+
+        // // Get Email and Password from the Login Form Input Fields
+        // const email = this.txtEmail.nativeElement.value;
+        // const password = this.txtPassword.nativeElement.value;
+        
+        
+        getUser.then((user) => {
+          console.log('I\'ve got a user.');            
+        })
+        .catch((e) => {console.log(e)});                          
     }        
 
-    login(){
-        // Get Email and Password from the form inputs
-        const email = this.txtEmail.nativeElement.value;
-        const password = this.txtPassword.nativeElement.value;
-        
-        // Log in the inputted user.              
-        firebase.auth().signInWithEmailAndPassword(email, password)
+    logIn(email, password){                        
+        this.authService.login(email, password)
           .then(function success() {
-            console.log('User Logged In Successfully!');
+            console.log('User Logged In Successfully!');                        
           })
-          .catch(e => console.log(e.message));
+          .catch(e => console.log(e.message));                
     }    
 
-    signup(){
+    signUp(){
       const email = this.txtEmail.nativeElement.value;
       const password = this.txtPassword.nativeElement.value;
       
@@ -62,7 +65,7 @@ export class LoginComponent {
         .catch(e => console.log(e.message));      
     }
 
-    logout(){
+    logOut(){
         firebase.auth().signOut();
     }          
 }
