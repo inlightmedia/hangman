@@ -16,17 +16,18 @@ export class AuthService {
     getAsyncUser(): Promise<Object> {        
         let promise = new Promise((resolve, reject) => {            
             firebase.auth().onAuthStateChanged((user)=>{                
+                this.user = user;
                 resolve(user);
             });                                
         });          
         return promise;                        
     }
 
-    public login(email, password){                                              
+    public logIn(email, password){                                              
         return firebase.auth().signInWithEmailAndPassword(email, password);        
     }    
 
-    public signup(email, password, displayName){
+    public signUp(email, password, displayName){
       
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function success(){
@@ -41,7 +42,7 @@ export class AuthService {
         .catch(e => console.log(e.message));      
     }
 
-    public logout(){
+    public logOut(){
         firebase.auth().signOut();
     }          
 }

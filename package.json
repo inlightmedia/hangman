@@ -27,11 +27,9 @@
     "webpack": "1.13.2",
     "zone.js": "0.6.25"
   },
-  "devDependencies": {
-    "bootstrap-loader": "^2.0.0-beta.15",
+  "devDependencies": {    
     "bootstrap-sass": "^3.3.7",    
-    "node-sass": "*",
-    "resolve-url-loader": "*",
+    "node-sass": "*",    
     "sass-loader": "*",
     "url-loader": "^0.5.7",
     "angular2-template-loader": "0.5.0",

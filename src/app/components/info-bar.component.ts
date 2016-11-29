@@ -1,88 +1,67 @@
 import { Component, ElementRef, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ScoreService } from '../services/score.service';
 import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'info-bar',
   template: `            
-    <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
-    </div>
+      <nav class="navbar navbar-light" style="background-color: #dafff6;">
+        <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-toggleable-md" id="navbarResponsive">
+          <a class="navbar-brand" href="#">Adventures of Captain Collaborative</a>                    
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <ul class="nav navbar-nav float-xs-right">                                    
+            <li class="nav-item">
+              <a class="nav-link" href="#">Your Score: {{ userProfile?.score }}</a>
+            </li>
+                            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="http://example.com" id="responsiveNavbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ userProfile?.displayName }}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="responsiveNavbarDropdown">
+                <a class="dropdown-item" (click)="authService.logOut()" href="#">Log Out</a>            
+                <a class="dropdown-item" (click)="toggleProfile()" href="#">{{ (showProfile)? 'Back to Main' : 'Edit Profile' }} <span class="caret"></span></a>                                      
+                <a class="dropdown-item" href="#">Highscores</a>
+              </div>
+            </li>                                            
+          </ul>          
+
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-    <div class="row">
-      <div class="col-md-6 alert">
-        <span *ngIf="user">
-          <span>Name: </span><span id="fillMe" #nameDisplay>{{ userProfile?.displayName }}</span>
-          <span>Score: </span><span id="showScore" #scoreDisplay>{{ userProfile?.score }}</span>
-        </span>  
-      </div>
-    </div>
-        
-    <button *ngIf="user" (click)="showProfileForm()" class="btn btn-primary">Update Profile</button>            
+      </nav>                                 
   `,
-  styles: ['.hidden {display: none}']
+  styles: [`
+    .hidden {
+      display: none
+    }
+
+    .clickable {
+      cursor: pointer !important;
+    }
+  
+  `]
 })
 export class InfoBarComponent { 
-    showProfile;
+    @Output('profileToggle') profileToggle = new EventEmitter<boolean>();        
     userService;
     user;
-    userProfile;  
+    userProfile;
+    showProfile = false;  
 
     @ViewChild('nameDisplay') nameDisplay: ElementRef;
     @ViewChild('scoreDisplay') scoreDisplay: ElementRef;
     
-    constructor(userService: UserService){                                                 
-        this.updateInfoBarData();               
+    constructor(private authService: AuthService){                                                 
+        this.updateInfoBarData();
+        // Send the boolean to the parent  
+                     
     }     
+
+    toggleProfile(){
+      this.showProfile = !this.showProfile;
+      this.profileToggle.emit(this.showProfile);
+    }
 
     updateInfoBarData(){
       firebase.auth().onAuthStateChanged(user => {                                          
@@ -113,11 +92,5 @@ export class InfoBarComponent {
               this.userProfile = null;                         
             }
         });
-    }
-    
-    showProfileForm(){
-      // reveal populated inputs for all user data
-      this.showProfile = true;      
-    }
-  
+    }    
 }

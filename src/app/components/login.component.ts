@@ -9,12 +9,11 @@ import { AuthService } from '../services/auth.service';
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <input class="form-control" *ngIf="!userService?.user" type="email" id="txtEmail" placeholder="Email" #txtEmail>
+          <input class="form-control" *ngIf="!userService?.user" type="email" placeholder="Email" #txtEmail>
         </div>
         <div class="form-group">
-          <input class="form-control" *ngIf="!userService?.user" type="password" id="txtPassword" placeholder="Password" #txtPassword>
-        </div>
-        
+          <input class="form-control" *ngIf="!userService?.user" type="password" placeholder="Password" #txtPassword>
+        </div>        
         
         <button class="btn btn-primary" *ngIf="!userService?.user" (click)="logIn(txtEmail.value, txtPassword.value)" class="btn btn-action" #btnLogin>Login</button>
         <button class="btn btn-primary" *ngIf="!userService?.user" (click)="signUp(txtEmail.value, txtPassword.value)" class="btn btn-secondary" #btnSignup>SignUp</button>
@@ -34,11 +33,6 @@ export class LoginComponent {
 
     constructor(public authService: AuthService, public userService: UserService){                
         const getUser = authService.getAsyncUser();
-
-        // // Get Email and Password from the Login Form Input Fields
-        // const email = this.txtEmail.nativeElement.value;
-        // const password = this.txtPassword.nativeElement.value;
-        
         
         getUser.then((user) => {
           console.log('I\'ve got a user.');            
@@ -46,8 +40,13 @@ export class LoginComponent {
         .catch((e) => {console.log(e)});                          
     }        
 
-    logIn(email, password){                        
-        this.authService.login(email, password)
+    logIn(emailRef: string, passwordRef: string){                                
+
+        // // Get Email and Password from the Login Form Input Fields
+        const email = this.txtEmail.nativeElement.value;
+        const password = this.txtPassword.nativeElement.value;
+
+        this.authService.logIn(email, password)
           .then(function success() {
             console.log('User Logged In Successfully!');                        
           })

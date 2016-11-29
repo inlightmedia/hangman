@@ -75,7 +75,8 @@ export class ScoreService {
     public tallyScore(user, solution, selection){                                
         var wrongGuesses = 0;
         // Announce that the problem is solved once all letters are unmasked
-        alert('Solved!');
+        // alert('Solved!');
+
         console.log('SOLVED');
         for(let i=0; i < selection.length; i++) {
             var character = selection.charAt(i);            

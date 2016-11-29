@@ -38,5 +38,4 @@ module.exports = {
     }),
     new ExtractTextPlugin('[name].css') // For Bootstrap
   ]
-  
 };

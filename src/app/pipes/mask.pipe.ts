@@ -4,6 +4,7 @@ import { ScoreService } from '../services/score.service';
 @Pipe({name: 'mask'})
 export class MaskPipe implements PipeTransform {
     scoreService;
+    complete = false;
     constructor(scoreService: ScoreService){
         this.scoreService = scoreService;
     }
@@ -19,19 +20,20 @@ export class MaskPipe implements PipeTransform {
             if (selection.includes(character)) {
                 masked += character;
                 
+                // winAnimation(); // Sets state to
+                
             } else {
-                masked += '*';
+                masked += '•';
             }
         }  
-
-        if (selection !== '' && correct === false) {
-            alert('WRONG!');
-        }
+        
         // Once all letters have been revealed calculate the score.
-        if(!masked.includes('*')){
+        if(!masked.includes('•') && this.complete === false){
             firebase.auth().onAuthStateChanged(user => {
                 this.scoreService.tallyScore(user, value, selection);                
-            });            
+            });
+            this.complete = true; 
+            // gameOverAnimation();           
         }        
         return masked;
     }

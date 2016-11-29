@@ -9,7 +9,9 @@ import { AngularFireModule } from 'angularfire2';
 import { UserService } from './services/user.service';
 import { ScoreService } from './services/score.service';
 import { AuthService } from './services/auth.service';
+import { AudioService } from './services/audio.service';
 import { LoginFormComponent } from './components/login-form.component';
+import { ProfileFormComponent } from './components/profile-form.component/profile-form.component';
 
 // Must export the config
 export const firebaseConfig = {  
@@ -22,8 +24,8 @@ export const firebaseConfig = {
 
 @NgModule({
   imports: [BrowserModule, AngularFireModule.initializeApp(firebaseConfig)],
-  declarations: [AppComponent, LetterButtonsComponent, MaskPipe, LoginComponent, InfoBarComponent, LoginFormComponent],
-  providers: [UserService, ScoreService, AuthService],
+  declarations: [AppComponent, LetterButtonsComponent, MaskPipe, LoginComponent, InfoBarComponent, LoginFormComponent, ProfileFormComponent],
+  providers: [UserService, ScoreService, AuthService, AudioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
