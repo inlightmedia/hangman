@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth.uid == $uid",
+        ".write": "auth.uid == $uid",
+        ".validate": "newData.hasChildren(['uid','displayName','score'])"
+      }
+    },
+    "posts": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}

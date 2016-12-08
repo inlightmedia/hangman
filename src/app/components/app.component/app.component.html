@@ -1,0 +1,53 @@
+<login-form *ngIf="!user"></login-form>
+<info-bar (profileToggle)="showProfile = $event" *ngIf="user"></info-bar>
+<profile-form *ngIf="showProfile"></profile-form>
+<animate></animate>
+<div id="gameOverScreen" *ngIf="gameOver">
+  <!--show game over and restart button and your score/high scores-->
+</div>
+<div class="main" *ngIf="user && !showProfile && !gameOver">  
+  <div id="interaction-pane">
+    <p id="instructions">FILL IN THE BLANK TO SAVE THE WOODLANDS!</p>
+    <h4 id="question">Q. To give informed consent, the resident must be able to both understand the relevant necessary information required
+      to make a decision and to ___________ the consequences of that decision. </h4>
+    <div class="word">
+      <div class="word" *ngFor="let letter of solutionArray">
+        <button class="btn btn-default letter">{{ (selection.includes(letter)) ? letter : '•' }}</button>
+      </div>
+    </div>
+    <span class="solution">{{ solution | mask:selection }}</span>
+    <letter-buttons [(selection)]="selection2"></letter-buttons>
+    <br>
+    <button *ngIf="correctCount !== solution.length" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          Educate Me!
+        </button>
+    <button *ngIf="correctCount === solution.length" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          NEXT QUESTION... <!-- run  function to reset selection and advance to next word, reset correct and wrong counts -->
+        </button>
+    <div id="copy-container">
+      <p id="copy"> © Copyright 2016, inLight Media Deisgn Solutions. All Rights Reserved.</p>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            <h4 class="modal-title" id="myModalLabel">
+              Supplementary Information
+            </h4>
+          </div>
+          <div class="modal-body">
+            This is an example of some fine educational material regarding consent.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--{{ stage }}-->
+</div>

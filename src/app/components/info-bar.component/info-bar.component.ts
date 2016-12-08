@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { ScoreService } from '../services/score.service';
-import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
+import { ScoreService } from '../../services/score.service';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'info-bar',
@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
       <nav class="navbar navbar-light" style="background-color: #dafff6;">
         <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-toggleable-md" id="navbarResponsive">
-          <a class="navbar-brand" href="#">Adventures of Captain Collaborative</a>                    
+          <a class="title navbar-brand" href="#">Adventures of Captain Collaborative</a>                    
 
           <ul class="nav navbar-nav float-xs-right">                                    
             <li class="nav-item">
@@ -38,7 +38,14 @@ import { AuthService } from '../services/auth.service';
 
     .clickable {
       cursor: pointer !important;
+    }    
+
+    .title {      
+      font-family: 'bangers';
+      letter-spacing: 3px;      
     }
+
+    
   
   `]
 })

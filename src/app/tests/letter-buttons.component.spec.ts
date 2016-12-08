@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LetterButtonsComponent } from '../components/letter-buttons.component';
+import { LetterButtonsComponent } from '../components/letter-buttons.component/letter-buttons.component';
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 

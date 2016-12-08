@@ -1,0 +1,101 @@
+h1 {
+            position: relative;
+        }
+        .green-bar {
+        position: relative;
+        background: green;
+        height: 100%;
+      }
+      
+      .hero {
+        position: absolute;
+        width: 130px;
+        top: 152px;
+        left: 266px;
+        z-index: 1;
+      }
+
+      .hero-shield {
+        position: absolute;
+        width: 40px;
+        top: 197px;
+        left: 334px;
+        z-index: 3;
+      }
+
+      .dozer {
+        position: absolute;
+        width: 200px;
+        top: 90px;
+        left: 360px;
+        z-index: 1;
+      }
+
+      .battle-stage{
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        left: 100px;
+        top: -30px;        
+      }
+
+      .woodland_container {
+        position: relative;
+        background-image: url('https://firebasestorage.googleapis.com/v0/b/woodland-lumber-jack.appspot.com/o/woodlands-bare.png?alt=media&token=99182f09-142f-44a2-9fbb-b7f563b14fa4'), url('https://firebasestorage.googleapis.com/v0/b/woodland-lumber-jack.appspot.com/o/woodlands-grass.png?alt=media&token=acc35c2e-0f89-4538-b63a-984c281b33a6');
+        background-position: bottom;
+        background-repeat: repeat-x;
+        height: 220px;
+        background-size: cover;
+      }
+      .trees {
+        position: absolute;
+        left: 150px;
+        top: 33px;
+        width: 200px;
+        z-index: 4;
+      }
+      .trees2 {
+        position: absolute;
+        left: 25px;
+        top: -2px;
+        width: 235px;
+        z-index: 0;
+      }
+      .trees3 {
+        position: absolute;
+        left: 90px;
+        top: 17px;
+        width: 210px;
+        z-index:0;
+      }
+      .trees4 {
+        position: absolute;
+        left: -30px;
+        top: 17px;
+        width: 210px;
+        z-index: 1;
+      }
+      
+      .cloudstart {
+        opacity: 0.6;
+        top: -50%;
+        left: 50%;
+        position: relative;
+        z-index: 0;
+      }      
+      
+      .cloud {
+        opacity: 0.6;
+        top: 0;
+        left: 120%;
+        position: relative;
+        z-index: 0;
+      }
+
+      .clouds {                
+        opacity: 0.6;
+        top: -20px;
+        left: 90%;
+        position: relative;
+        z-index: 0;
+      }

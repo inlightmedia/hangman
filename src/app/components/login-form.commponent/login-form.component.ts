@@ -1,11 +1,14 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { User } from '../models/user.model';
-import { AuthService } from '../services/auth.service';
+import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'login-form',
     template: `        
-        <h1 class="text-center">Woodland Feller</h1>
+        <div class="title-container">
+            <h1 class="title text-center">The Adventres of Captain Collaborative</h1>
+        </div>
+        
         <br>
         <div class="row">
             <div class="col-md-12">
@@ -28,7 +31,18 @@ import { AuthService } from '../services/auth.service';
             
         </div>
         
-    `
+    `,
+    styles: [`        
+      .title {
+          font-family: 'bangers';
+      }
+
+      .title-container {
+          display: flex;
+          justify-content: center;
+          margin-top: 30px;
+      }
+    `]
 })
 export class LoginFormComponent {
     

@@ -4,5 +4,10 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "compileOnSave": false
+  "compileOnSave": false,
+  "types": [
+    // "jquery",
+    // "webpack",
+    // "gsap"
+  ]
 }
